@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mathematics in the Modern World | Midterm Lessons</title>
+  <style>
+    :root {
+      --primary: #1a365d;
+      --primary-light: #2b6cb0;
+      --accent: #ed8936;
+      --bg: #f7fafc;
+      --card: #ffffff;
+      --text: #2d3748;
+      --muted: #718096;
+      --border: #e2e8f0;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 80px;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: white;
+      padding: 2rem 1.25rem 2.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    header h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      position: relative;
+    }
+
+    header .subtitle {
+      font-size: 1rem;
+      opacity: 0.9;
+      margin-bottom: 1.25rem;
+      position: relative;
+    }
+
+    .developer {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      position: relative;
+    }
+
+    .nav-container {
+      max-width: 800px;
+      margin: -1.5rem auto 0;
+      padding: 0 1rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .topic-list {
+      background: var(--card);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .topic-item { border-bottom: 1px solid var(--border); }
+    .topic-item:last-child { border-bottom: none; }
+
+    .topic-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 1.25rem;
+      cursor: pointer;
+      background: var(--card);
+      transition: background 0.2s;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .topic-header:hover,
+    .topic-header:active { background: #edf2f7; }
+
+    .topic-header h2 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .topic-number {
+      background: var(--primary);
+      color: white;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .chevron {
+      width: 22px; height: 22px;
+      transition: transform 0.3s ease;
+      color: var(--muted);
+    }
+
+    .topic-item.active .chevron {
+      transform: rotate(180deg);
+      color: var(--primary-light);
+    }
+
+    .topic-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.45s ease;
+      background: #f8fafc;
+    }
+
+    .topic-item.active .topic-content { max-height: 6000px; }
+
+    .content-inner { padding: 1.25rem 1.25rem 1.75rem; }
+
+    h3 {
+      font-size: 1.15rem;
+      color: var(--primary);
+      margin: 1.4rem 0 0.6rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 2px solid #bee3f8;
+    }
+
+    h3:first-child { margin-top: 0; }
+
+    h4 {
+      font-size: 1.05rem;
+      color: var(--primary-light);
+      margin: 1.1rem 0 0.45rem;
+    }
+
+    p { margin-bottom: 0.85rem; }
+
+    ul, ol { margin: 0.6rem 0 1rem 1.4rem; }
+    li { margin-bottom: 0.4rem; }
+
+    .example-box {
+      background: #ebf8ff;
+      border-left: 4px solid var(--primary-light);
+      padding: 0.9rem 1rem;
+      margin: 0.9rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .example-box strong { color: var(--primary); }
+
+    .note-box {
+      background: #fefcbf;
+      border-left: 4px solid var(--accent);
+      padding: 0.9rem 1rem;
+      margin: 0.9rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .symbol-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.95rem;
+    }
+
+    .symbol-table th,
+    .symbol-table td {
+      border: 1px solid var(--border);
+      padding: 0.55rem 0.7rem;
+      text-align: left;
+    }
+
+    .symbol-table th {
+      background: var(--primary);
+      color: white;
+    }
+
+    .symbol-table tr:nth-child(even) { background: #f7fafc; }
+
+    .math {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 1.1em;
+    }
+
+    .highlight {
+      background: #c6f6d5;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .venn-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      justify-content: center;
+      margin: 1.2rem 0;
+    }
+
+    .venn-box { text-align: center; }
+
+    .venn {
+      position: relative;
+      width: 200px;
+      height: 150px;
+      margin: 0 auto 0.4rem;
+      border: 2px solid #a0aec0;
+      border-radius: 6px;
+      background: #edf2f7;
+    }
+
+    .circle {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid;
+      opacity: 0.8;
+    }
+
+    .circle.a {
+      left: 15px; top: 25px;
+      border-color: #3182ce;
+      background: rgba(49, 130, 206, 0.2);
+    }
+
+    .circle.b {
+      right: 15px; top: 25px;
+      border-color: #dd6b20;
+      background: rgba(221, 107, 32, 0.2);
+    }
+
+    .venn-label {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    footer .dev {
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    #scrollTop {
+      position: fixed;
+      bottom: 24px; right: 24px;
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      border: none;
+      font-size: 1.3rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+      z-index: 100;
+    }
+
+    #scrollTop.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    @media (min-width: 640px) {
+      header h1 { font-size: 2.1rem; }
+      .content-inner { padding: 1.5rem 1.75rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Mathematics in the Modern World</h1>
+    <p class="subtitle">Midterm Lessons</p>
+    <div class="developer">Developed by Juanito Rallos</div>
+  </header>
+
+  <div class="nav-container">
+    <div class="topic-list" id="topics">
+
+      <!-- 1. Mathematical Language and Symbols -->
+      <div class="topic-item">
+        <div class="topic-header" onclick="toggleTopic(this)">
+          <h2><span class="topic-number">1</span> Mathematical Language and Symbols</h2>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+        <div class="topic-content">
+          <div class="content-inner">
+            <h3>Common Mathematical Symbols</h3>
+            <table class="symbol-table">
+              <thead>
+                <tr>
+                  <th>Symbol</th>
+                  <th>Meaning</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="math">+</td><td>Plus / Addition</td></tr>
+                <tr><td class="math">−</td><td>Minus / Subtraction</td></tr>
+                <tr><td class="math">× or ⋅</td><td>Times / Multiplication</td></tr>
+                <tr><td class="math">÷ or /</td><td>Divided by</td></tr>
+                <tr><td class="math">=</td><td>Equal to</td></tr>
+                <tr><td class="math">≠</td><td>Not equal to</td></tr>
+                <tr><td class="math">&lt;</td><td>Less than</td></tr>
+                <tr><td class="math">&gt;</td><td>Greater than</td></tr>
+                <tr><td class="math">≤</td><td>Less than or equal to</td></tr>
+                <tr><td class="math">≥</td><td>Greater than or equal to</td></tr>
+                <tr><td class="math">√</td><td>Square root</td></tr>
+                <tr><td class="math">x, y, z</td><td>Variables</td></tr>
+              </tbody>
+            </table>
+
+            <h3>Words Used in Mathematical Expressions</h3>
+
+            <h4>Addition</h4>
+            <ul>
+              <li>Sum</li>
+              <li>Plus</li>
+              <li>Added by</li>
+              <li>More than</li>
+              <li>Increased by</li>
+              <li>Greater than</li>
+            </ul>
+
+            <h4>Subtraction</h4>
+            <ul>
+              <li>Minus</li>
+              <li>Difference</li>
+              <li>Decreased by</li>
+              <li>Less than</li>
+              <li>Subtracted by</li>
+              <li>Diminished by</li>
+            </ul>
+
+            <h4>Multiplication</h4>
+            <ul>
+              <li>Times</li>
+              <li>Product of</li>
+              <li>Multiplied by</li>
+            </ul>
+
+            <h4>Division</h4>
+            <ul>
+              <li>Divided by</li>
+              <li>Quotient</li>
+              <li>Ratio</li>
+            </ul>
+
+            <div class="example-box">
+              <strong>Example – Verbal Phrase to Math:</strong><br>
+              “The sum of a number and 10” → <span class="math">x + 10</span><br>
+              “A number decreased by 8” → <span class="math">x − 8</span><br>
+              “The product of 10 and a number” → <span class="math">10x</span><br>
+              “The quotient of a number and 50” → <span class="math">x / 50</span> or <span class="math">x ÷ 50</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Mathematical Expression -->
+      <div class="topic-item">
+        <div class="topic-header" onclick="toggleTopic(this)">
+          <h2><span class="topic-number">2</span> Mathematical Expression</h2>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+        <div class="topic-content">
+          <div class="content-inner">
+            <h3>What is a Mathematical Expression?</h3>
+            <p>A mathematical expression is a combination of numbers, variables, and operation symbols that represents a value.</p>
+
+            <h3>Examples from Notes</h3>
+
+            <div class="example-box">
+              <strong>1.</strong> The difference of a number and 5<br>
+              Let x be the number → <span class="math">x − 5</span>
+            </div>
+
+            <div class="example-box">
+              <strong>2.</strong> The product of 10 and a number<br>
+              → <span class="math">10x</span>
+            </div>
+
+            <div class="example-box">
+              <strong>3.</strong> The quotient of a number and 50<br>
+              → <span class="math">x / 50</span>
+            </div>
+
+            <div class="example-box">
+              <strong>4.</strong> One-fifth of a number<br>
+              → <span class="math">x / 5</span> or <span class="math">(1/5)x</span>
+            </div>
+
+            <div class="example-box">
+              <strong>5.</strong> Three-fourths of 500<br>
+              → <span class="math">(3/4) × 500 = 375</span>
+            </div>
+
+            <div class="example-box">
+              <strong>6.</strong> The sum of two numbers less 11<br>
+              Let x = first number, y = second number<br>
+              → <span class="math">(x + y) − 11</span>
+            </div>
+
+            <div class="example-box">
+              <strong>7.</strong> Double the quantity of sales less taxes<br>
+              → <span class="math">2x − y</span>
+            </div>
+
+            <div class="example-box">
+              <strong>8.</strong> The difference of gross sales less taxes<br>
+              → <span class="math">x − y</span>
+            </div>
+
+            <div class="example-box">
+              <strong>9.</strong> A number subtracted from 8<br>
+              → <span class="math">8 − x</span>
+            </div>
+
+            <h3>Sample Problems (from notes)</h3>
+
+            <div class="example-box">
+              <strong>Problem:</strong> The sum of two numbers is 45 and their difference is 11. Find the numbers.<br><br>
+              Let x = first number<br>
+              Let y = x + 11<br>
+              x + (x + 11) = 45<br>
+              2x + 11 = 45<br>
+              2x = 34<br>
+              x = 17<br>
+              y = 17 + 11 = <span class="highlight">28</span>
+            </div>
+
+            <div class="example-box">
+              <strong>Problem:</strong> The average of two quizzes is 85. The first quiz is 10 points higher than the second. What are the values of the two quizzes?<br><br>
+              Let x = second quiz<br>
+              First quiz = x + 10<br>
+              (x + (x + 10)) / 2 = 85<br>
+              (2x + 10) / 2 = 85<br>
+              2x + 10 = 170<br>
+              2x = 160<br>
+              x = 80<br>
+              First quiz = 90
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Sets -->
+      <div class="topic-item">
+        <div class="topic-header" onclick="toggleTopic(this)">
+          <h2><span class="topic-number">3</span> Sets</h2>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+        <div class="topic-content">
+          <div class="content-inner">
+            <h3>Definition of a Set</h3>
+            <p>A set is a well-defined collection of distinct objects. The objects in the set are called <strong>elements</strong>.</p>
+
+            <div class="example-box">
+              <strong>Example:</strong><br>
+              A = {1, 2, 3, 4}<br>
+              B = {a, b, c, d}
+            </div>
+
+            <h3>Well-Defined Set</h3>
+            <p>A set is well-defined if we can clearly determine whether an object belongs to the set or not.</p>
+
+            <div class="example-box">
+              <strong>Well-defined:</strong> The set of counting numbers less than 10<br>
+              <strong>Not well-defined:</strong> The set of beautiful flowers (subjective)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Different Types of Sets -->
+      <div class="topic-item">
+        <div class="topic-header" onclick="toggleTopic(this)">
+          <h2><span class="topic-number">4</span> Different Types of Sets</h2>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+        <div class="topic-content">
+          <div class="content-inner">
+
+            <h3>1. Empty Set / Null Set</h3>
+            <p>A set with no elements. Denoted by <span class="math">∅</span> or <span class="math">{ }</span>.</p>
+            <div class="example-box">
+              The set of counting numbers less than 0 → ∅
+            </div>
+
+            <h3>2. Finite Set</h3>
+            <p>A set with a limited number of elements.</p>
+            <div class="example-box">
+              A = {1, 2, 3, 4, 5} → finite<br>
+              Set of days in a week → finite
+            </div>
+
+            <h3>3. Infinite Set</h3>
+            <p>A set with unlimited number of elements.</p>
+            <div class="example-box">
+              Set of counting numbers: {1, 2, 3, 4, …}<br>
+              Set of whole numbers: {0, 1, 2, 3, …}
+            </div>
+
+            <h3>4. Equal Sets</h3>
+            <p>Two sets are equal if they have exactly the same elements.</p>
+            <div class="example-box">
+              A = {1, 2, 3, 4}<br>
+              B = {4, 3, 2, 1}<br>
+              A = B (same elements)
+            </div>
+
+            <h3>5. Equivalent Sets</h3>
+            <p>Two sets are equivalent if they have the same number of elements (same cardinality).</p>
+            <div class="example-box">
+              A = {1, 2, 3, 4}<br>
+              B = {a, b, c, d}<br>
+              A and B are equivalent (both have 4 elements)
+            </div>
+
+            <h3>6. Universal Set</h3>
+            <p>The set of all elements under consideration. Denoted by <span class="math">U</span>.</p>
+            <div class="example-box">
+              U = {1, 2, 3, 4, 5, 6, 7}<br>
+              A = {1, 2, 3, 4}
+            </div>
+
+            <h3>7. Set Complement</h3>
+            <p>The complement of set A (written A′ or A<sup>c</sup>) is the set of all elements in the universal set that are <strong>not</strong> in A.</p>
+            <div class="example-box">
+              U = {1, 2, 3, 4, 5, 6, 7}<br>
+              A = {1, 2, 3, 4}<br>
+              A′ = {5, 6, 7}
+            </div>
+
+            <h3>8. Proper Subset</h3>
+            <p>Set A is a proper subset of set B (A ⊂ B) if all elements of A are in B, and A ≠ B.</p>
+            <div class="example-box">
+              A = {1, 2, 3, 4, 5}<br>
+              B = {1, 2, 3, 4, 5, 6, 7}<br>
+              A ⊂ B
+            </div>
+
+            <h3>9. Improper Subset</h3>
+            <p>Every set is an improper subset of itself. Also, the empty set is a subset of every set.</p>
+            <div class="example-box">
+              A = {1, 2, 3, 4, 5}<br>
+              A ⊆ A (improper subset)
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Set Operations -->
+      <div class="topic-item">
+        <div class="topic-header" onclick="toggleTopic(this)">
+          <h2><span class="topic-number">5</span> Set Operations</h2>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+        <div class="topic-content">
+          <div class="content-inner">
+
+            <h3>1. Intersection (A ∩ B)</h3>
+            <p>The set of elements that are common to both A and B.</p>
+            <div class="example-box">
+              A = {1, 2, 3, 4}<br>
+              B = {2, 3, 5, 6, 7}<br>
+              A ∩ B = {2, 3}
+            </div>
+
+            <h3>2. Union (A ∪ B)</h3>
+            <p>The set of elements that belong to either A or B or both.</p>
+            <div class="example-box">
+              A = {1, 2, 3, 4}<br>
+              B = {3, 4, 5}<br>
+              A ∪ B = {1, 2, 3, 4, 5}
+            </div>
+
+            <h3>3. Disjoint Sets</h3>
+            <p>Two sets are disjoint if they have no elements in common (A ∩ B = ∅).</p>
+            <div class="example-box">
+              A = {1, 2, 3}<br>
+              B = {4, 5, 6}<br>
+              A ∩ B = ∅ → Disjoint sets
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Venn Diagram -->
+      <div class="topic-item">
+        <div class="topic-header" onclick="toggleTopic(this)">
+          <h2><span class="topic-number">6</span> Venn Diagram</h2>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+        <div class="topic-content">
+          <div class="content-inner">
+            <h3>What is a Venn Diagram?</h3>
+            <p>A Venn diagram uses circles inside a rectangle (universal set) to show relationships between sets.</p>
+
+            <div class="venn-container">
+              <div class="venn-box">
+                <div class="venn">
+                  <div class="circle a"></div>
+                  <div class="circle b"></div>
+                </div>
+                <div class="venn-label">A ∪ B (Union)</div>
+              </div>
+              <div class="venn-box">
+                <div class="venn">
+                  <div class="circle a"></div>
+                  <div class="circle b"></div>
+                </div>
+                <div class="venn-label">A ∩ B (Intersection)</div>
+              </div>
+            </div>
+
+            <h3>Examples from Notes</h3>
+
+            <div class="example-box">
+              <strong>Given:</strong><br>
+              A = {1, 2, 3, 4, 5}<br>
+              B = {1, 2, 3, 4, 5, 6, 7}<br>
+              A ⊂ B (A is a proper subset of B)
+            </div>
+
+            <div class="example-box">
+              <strong>Intersection Example:</strong><br>
+              A = {1, 2, 3, 4}<br>
+              B = {2, 3, 5, 6, 7}<br>
+              A ∩ B = {2, 3}
+            </div>
+
+            <div class="example-box">
+              <strong>Union Example:</strong><br>
+              A = {1, 2, 3, 4}<br>
+              B = {3, 4, 5}<br>
+              A ∪ B = {1, 2, 3, 4, 5}
+            </div>
+
+            <div class="note-box">
+              <strong>Remember:</strong><br>
+              • Shaded region in A ∩ B = only the overlapping part<br>
+              • Shaded region in A ∪ B = everything inside both circles
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. Reasoning (Inductive and Deductive) -->
+      <div class="topic-item">
+        <div class="topic-header" onclick="toggleTopic(this)">
+          <h2><span class="topic-number">7</span> Reasoning (Inductive and Deductive)</h2>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+        <div class="topic-content">
+          <div class="content-inner">
+
+            <h3>1. Inductive Reasoning</h3>
+            <p>Inductive reasoning starts from <strong>specific examples or observations</strong> and then forms a <strong>general conclusion</strong> or pattern.</p>
+            <p>The conclusion is <strong>probable</strong> (likely true) but not 100% certain.</p>
+
+            <h4>How it works:</h4>
+            <ol>
+              <li>Observe specific cases or examples</li>
+              <li>Look for a pattern</li>
+              <li>Make a general conclusion based on the pattern</li>
+            </ol>
+
+            <div class="example-box">
+              <strong>Example 1:</strong><br>
+              2 + 1 = 3 (odd)<br>
+              4 + 1 = 5 (odd)<br>
+              6 + 1 = 7 (odd)<br>
+              8 + 1 = 9 (odd)<br><br>
+              <strong>Conclusion:</strong> The sum of an even number and 1 is always an odd number.
+            </div>
+
+            <div class="example-box">
+              <strong>Example 2:</strong><br>
+              3² = 9<br>
+              5² = 25<br>
+              7² = 49<br>
+              9² = 81<br><br>
+              <strong>Conclusion:</strong> The square of an odd number is always odd.
+            </div>
+
+            <div class="example-box">
+              <strong>Example 3:</strong><br>
+              1 = 1²<br>
+              1 + 3 = 4 = 2²<br>
+              1 + 3 + 5 = 9 = 3²<br>
+              1 + 3 + 5 + 7 = 16 = 4²<br><br>
+              <strong>Conclusion:</strong> The sum of the first n odd numbers is equal to n².
+            </div>
+
+            <div class="example-box">
+              <strong>Example 4:</strong><br>
+              5, 10, 15, 20, 25, …<br><br>
+              <strong>Conclusion:</strong> These are multiples of 5. The next number is 30.
+            </div>
+
+            <div class="note-box">
+              <strong>Note:</strong> Inductive reasoning is useful for discovering patterns, but the conclusion can still be wrong if a counter-example is found later.
+            </div>
+
+            <h3>2. Deductive Reasoning</h3>
+            <p>Deductive reasoning starts from <strong>general statements</strong> (rules, definitions, or theorems) and reaches a <strong>specific conclusion</strong>.</p>
+            <p>If the premises are true, the conclusion <strong>must</strong> be true.</p>
+
+            <h4>How it works:</h4>
+            <ol>
+              <li>Start with a general rule or known fact</li>
+              <li>Apply it to a specific case</li>
+              <li>Reach a certain conclusion</li>
+            </ol>
+
+            <div class="example-box">
+              <strong>Example 1:</strong><br>
+              <strong>Premise 1:</strong> All even numbers are divisible by 2.<br>
+              <strong>Premise 2:</strong> 14 is an even number.<br>
+              <strong>Conclusion:</strong> Therefore, 14 is divisible by 2.
+            </div>
+
+            <div class="example-box">
+              <strong>Example 2:</strong><br>
+              <strong>Premise:</strong> The sum of the angles in any triangle is 180°.<br>
+              In triangle ABC, ∠A = 50° and ∠B = 60°.<br>
+              <strong>Conclusion:</strong> ∠C = 180° − 50° − 60° = 70°.
+            </div>
+
+            <div class="example-box">
+              <strong>Example 3:</strong><br>
+              If a number is a multiple of 6, then it is a multiple of both 2 and 3.<br>
+              18 is a multiple of 6.<br>
+              <strong>Conclusion:</strong> 18 is a multiple of 2 and of 3.
+            </div>
+
+            <div class="example-box">
+              <strong>Example 4:</strong><br>
+              All squares have four equal sides.<br>
+              Figure ABCD is a square.<br>
+              <strong>Conclusion:</strong> Figure ABCD has four equal sides.
+            </div>
+
+            <h3>Comparison: Inductive vs Deductive</h3>
+            <table class="symbol-table">
+              <thead>
+                <tr>
+                  <th>Aspect</th>
+                  <th>Inductive</th>
+                  <th>Deductive</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Direction</td>
+                  <td>Specific → General</td>
+                  <td>General → Specific</td>
+                </tr>
+                <tr>
+                  <td>Based on</td>
+                  <td>Patterns / examples</td>
+                  <td>Rules / definitions / theorems</td>
+                </tr>
+                <tr>
+                  <td>Certainty</td>
+                  <td>Conclusion is probable</td>
+                  <td>Conclusion is certain (if premises are true)</td>
+                </tr>
+                <tr>
+                  <td>Used for</td>
+                  <td>Discovering patterns, making conjectures</td>
+                  <td>Proving statements, solving problems</td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <p>Mathematics in the Modern World • Midterm Lessons</p>
+    <p class="dev">Developed by Juanito Rallos</p>
+    <p style="margin-top:0.5rem; font-size:0.85rem;">Tap any topic above to expand or collapse</p>
+  </footer>
+
+  <button id="scrollTop" onclick="window.scrollTo({top:0, behavior:'smooth'})" title="Back to top">↑</button>
+
+  <script>
+    function toggleTopic(header) {
+      const item = header.parentElement;
+      const wasActive = item.classList.contains('active');
+      document.querySelectorAll('.topic-item').forEach(el => el.classList.remove('active'));
+      if (!wasActive) item.classList.add('active');
+    }
+
+    window.addEventListener('scroll', () => {
+      const btn = document.getElementById('scrollTop');
+      if (window.scrollY > 300) btn.classList.add('show');
+      else btn.classList.remove('show');
+    });
+  </script>
+</body>
+</html>
